@@ -7,8 +7,10 @@ import com.example.RestaurantService.exception.CusineNotFound;
 import com.example.RestaurantService.exception.RestaurantNotFoundException;
 import com.example.RestaurantService.exception.UserAlreadyExists;
 import com.example.RestaurantService.exception.UserNotFoundException;
+import com.example.RestaurantService.proxy.UserProxy;
 import com.example.RestaurantService.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,10 +23,12 @@ public class UserService implements IUserService{
 
 
     private IUserRepository iUserRepository;
+    private UserProxy userProxy;
 
     @Autowired
-    public UserService(IUserRepository iUserRepository) {
+    public UserService(IUserRepository iUserRepository,UserProxy userProxy) {
         this.iUserRepository = iUserRepository;
+        this.userProxy=userProxy;
     }
 
     @Override
@@ -32,7 +36,10 @@ public class UserService implements IUserService{
         Optional<User> user1 = iUserRepository.findById(user.getUserId());
         if(user1.isPresent()){throw new UserAlreadyExists();
         }
-        return iUserRepository.save(user);
+        User user2 = iUserRepository.save(user);
+        ResponseEntity responseEntity = userProxy.saveUser(user2);
+        System.out.println(responseEntity.getBody());
+        return user2;
     }
 
     @Override
