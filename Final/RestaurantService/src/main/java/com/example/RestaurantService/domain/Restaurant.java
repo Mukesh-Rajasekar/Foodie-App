@@ -1,23 +1,27 @@
 package com.example.RestaurantService.domain;
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
+
 public class Restaurant {
     @Id
     private String restaurantId;
     private String name;
     private String location;
-    private Cuisine cuisine;
+    private List<Cuisine> cuisine;
+    private List<FoodItems> foodItems;
 
 
     public Restaurant(){
 
     }
 
-    public Restaurant(String restaurantId, String name, String location, Cuisine cuisine) {
+    public Restaurant(String restaurantId,FoodItems foodItems, String name, String location, Cuisine cuisine) {
         this.restaurantId = restaurantId;
         this.name = name;
         this.location = location;
-        this.cuisine = cuisine;
+        this.cuisine = (List<Cuisine>) cuisine;
+        this.foodItems= (List<FoodItems>) foodItems;
     }
 
     public String getRestaurantId() {
@@ -45,10 +49,19 @@ public class Restaurant {
     }
 
     public Cuisine getCuisine() {
-        return cuisine;
+        return (Cuisine) cuisine;
     }
 
     public void setCuisine(Cuisine cuisine) {
-        this.cuisine = cuisine;
+        this.cuisine = (List<Cuisine>) cuisine;
     }
+
+    public List<FoodItems> getFoodItems() {
+        return foodItems;
+    }
+    public void setFoodItems(List<FoodItems> foodItems) {
+        this.foodItems = foodItems;
+    }
+
+
 }
