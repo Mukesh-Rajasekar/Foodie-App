@@ -29,7 +29,7 @@ public class UserController {
         this.iUserService = iUserService;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/api/v2/register")
     public ResponseEntity<User> registerUser(@RequestBody User user) throws UserAlreadyExists {
         User registeredUser = iUserService.registerUser(user);
         return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
