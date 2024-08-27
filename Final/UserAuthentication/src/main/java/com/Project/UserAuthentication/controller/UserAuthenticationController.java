@@ -5,6 +5,7 @@ import com.Project.UserAuthentication.exception.InvalidCredentialsException;
 import com.Project.UserAuthentication.exception.UserAlreadyExistsException;
 import com.Project.UserAuthentication.security.ISecurityTokenGenerator;
 import com.Project.UserAuthentication.service.IUserAuthenticationService;
+import jakarta.persistence.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
+
 @RestController
+@RequestMapping("/api/v1")
 public class UserAuthenticationController{
 
     private IUserAuthenticationService iUserAuthenticationService;
@@ -27,14 +30,14 @@ public class UserAuthenticationController{
         this.iSecurityTokenGenerator = iSecurityTokenGenerator;
     }
 
-    @PostMapping("api/v1//register")
+    @PostMapping("/register")
     public ResponseEntity saveUser(@RequestBody UserAuthentication userAuthentication) throws UserAlreadyExistsException {
             UserAuthentication userAuthentication1=iUserAuthenticationService.registerUser(userAuthentication);
             responseEntity=new ResponseEntity(userAuthentication1, HttpStatus.CREATED);
             return responseEntity;
     }
 
-    @PostMapping("api/v1/login")
+    @PostMapping("/login")
     public ResponseEntity loginUser(@RequestBody UserAuthentication userAuthentication) throws InvalidCredentialsException {
         System.out.println("Inside Controller Layer");
             UserAuthentication userAuthentication1=iUserAuthenticationService.login(userAuthentication.getUserId(), userAuthentication.getPassword());

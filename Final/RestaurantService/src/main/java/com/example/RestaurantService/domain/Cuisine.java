@@ -1,9 +1,10 @@
 package com.example.RestaurantService.domain;
 
 
-
+import org.springframework.data.annotation.Id;
 
 public class Cuisine {
+    @Id
     private Long cuisineId;
     private String name;
     private String type;

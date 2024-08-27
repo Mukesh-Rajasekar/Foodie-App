@@ -5,13 +5,13 @@ public class FoodItems {
     private String dishName;
     private double price;
     private float rating;
-    private String dishDiscription;
+    private String dishDescription;
 
-    public FoodItems(String dishName, double price, float rating, String dishDiscription) {
+    public FoodItems(String dishName, double price, float rating, String dishDescription) {
         this.dishName = dishName;
         this.price = price;
         this.rating = rating;
-        this.dishDiscription = dishDiscription;
+        this.dishDescription = dishDescription;
     }
 
     public FoodItems(){
@@ -42,11 +42,11 @@ public class FoodItems {
         this.rating = rating;
     }
 
-    public String getDishDiscription() {
-        return dishDiscription;
+    public String getDishDescription() {
+        return dishDescription;
     }
 
-    public void setDishDiscription(String dishDiscription) {
-        this.dishDiscription = dishDiscription;
+    public void setDishDescription(String dishDescription) {
+        this.dishDescription = dishDescription;
     }
 }

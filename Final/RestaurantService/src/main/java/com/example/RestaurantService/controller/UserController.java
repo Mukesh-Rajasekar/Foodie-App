@@ -19,7 +19,7 @@ import java.util.List;
 
 
 @RestController
-//@RequestMapping("api/v2")
+@RequestMapping("/api/v2")
 public class UserController {
 
     private IUserService iUserService;
@@ -29,13 +29,13 @@ public class UserController {
         this.iUserService = iUserService;
     }
 
-    @PostMapping("/api/v2/register")
+    @PostMapping("/register")
     public ResponseEntity<User> registerUser(@RequestBody User user) throws UserAlreadyExists {
         User registeredUser = iUserService.registerUser(user);
         return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
     }
 
-    @PutMapping("api/v2/updateUsernameAndEmail/{userId}")
+    @PutMapping("/user/updateUsernameAndEmail/{userId}")
     public ResponseEntity<User> updateUsernameAndEmail(@PathVariable String userId,
                                                        @RequestBody User updatedUser) throws UserNotFoundException {
         User result = iUserService.updateUser(userId, updatedUser);
@@ -45,7 +45,7 @@ public class UserController {
         return ResponseEntity.ok(result); // Return 200 OK with updated user
     }
 
-    @DeleteMapping("/api/v2/deleterestaurant/{restaurantId}")
+    @DeleteMapping("/user/deleterestaurant/{restaurantId}")
     public ResponseEntity<?> deleteRestaurantFromFavouriteRestaurantList(@PathVariable String restaurantId, HttpServletRequest request)
             throws UserNotFoundException, RestaurantNotFoundException
     {
@@ -58,7 +58,7 @@ public class UserController {
         return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/v2/deletecuisine/{cuisineId}")
+    @DeleteMapping("/user/deletecuisine/{cuisineId}")
     public ResponseEntity<?> deleteCuisineFromFavouriteCuisineList(@PathVariable Long cuisineId, HttpServletRequest request)
             throws UserNotFoundException, CusineNotFound
     {
@@ -72,7 +72,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/api/v2/{userId}/favorite-cuisine")
+    @PostMapping("/user/{userId}/favorite-cuisine")
     public ResponseEntity<User> addFavoriteCuisine(
             @PathVariable String userId,
             @RequestBody Cuisine cuisine
@@ -82,7 +82,7 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
-    @PostMapping("/api/v2/{userId}/favorite-restaurant")
+    @PostMapping("/user/{userId}/favorite-restaurant")
     public ResponseEntity<User> addFavoriteRestaurant(
             @PathVariable String userId,
             @RequestBody Restaurant restaurant
@@ -92,7 +92,7 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
-    @GetMapping("/api/v2/display-all-fav-restaurant/{userId}")
+    @GetMapping("/user/display-all-fav-restaurant/{userId}")
     public ResponseEntity displayAllFavRestaurant(@PathVariable String userId) throws UserNotFoundException {
         List<Restaurant> favRest = iUserService.favRestaurants(userId);
         return new ResponseEntity(favRest,HttpStatus.OK);

@@ -21,7 +21,7 @@ public class RestaurantServiceApplication {
 		FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
 		filterRegistrationBean.setFilter(new JWTFilter());
 		System.out.println("Bean in Creating");
-		filterRegistrationBean.addUrlPatterns("/api/v2/*");
+		filterRegistrationBean.addUrlPatterns("/api/v2/user/*");
 		return filterRegistrationBean;
 
 	}

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name="UserAuthentication",url = "localhost:8086")
 public interface UserProxy {
 
-    @PostMapping("/register")
+    @PostMapping("/api/v1/register")
     public ResponseEntity saveUser(@RequestBody User user);
 
 }

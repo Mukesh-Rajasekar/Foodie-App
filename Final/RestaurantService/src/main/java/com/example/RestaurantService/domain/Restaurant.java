@@ -8,20 +8,17 @@ public class Restaurant {
     private String restaurantId;
     private String name;
     private String location;
-    private List<Cuisine> cuisine;
+    private List<Cuisine> cuisine;  // Corrected to List<Cuisine>
     private List<FoodItems> foodItems;
 
+    public Restaurant() {}
 
-    public Restaurant(){
-
-    }
-
-    public Restaurant(String restaurantId,FoodItems foodItems, String name, String location, Cuisine cuisine) {
+    public Restaurant(String restaurantId, String name, String location, List<Cuisine> cuisine, List<FoodItems> foodItems) {
         this.restaurantId = restaurantId;
         this.name = name;
         this.location = location;
-        this.cuisine = (List<Cuisine>) cuisine;
-        this.foodItems= (List<FoodItems>) foodItems;
+        this.cuisine = cuisine;
+        this.foodItems = foodItems;
     }
 
     public String getRestaurantId() {
@@ -48,12 +45,12 @@ public class Restaurant {
         this.location = location;
     }
 
-    public Cuisine getCuisine() {
-        return (Cuisine) cuisine;
+    public List<Cuisine> getCuisine() {
+        return cuisine;  // Return list of Cuisine objects
     }
 
-    public void setCuisine(Cuisine cuisine) {
-        this.cuisine = (List<Cuisine>) cuisine;
+    public void setCuisine(List<Cuisine> cuisine) {
+        this.cuisine = cuisine;  // Set list of Cuisine objects
     }
 
     public List<FoodItems> getFoodItems() {
