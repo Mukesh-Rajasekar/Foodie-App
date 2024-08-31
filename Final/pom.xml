@@ -16,6 +16,7 @@
     <module>RestaurantService</module>
     <module>ApiGateway</module>
     <module>EurekaServer</module>
+    <module>RestaurantData</module>
   </modules>
   <name>Final</name>
   <url>http://maven.apache.org</url>
