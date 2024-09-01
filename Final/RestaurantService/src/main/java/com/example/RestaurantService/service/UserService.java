@@ -120,9 +120,10 @@ public class UserService implements IUserService{
     @Override
     public List<Restaurant> favRestaurants(String userId) throws UserNotFoundException {
         Optional<User> optionalUser = iUserRepository.findById(userId);
-
+        System.out.println("Request is coming inside service");
         if(optionalUser.isEmpty()){throw new UserNotFoundException();}
         User user = optionalUser.get();
+
         List<Restaurant> favoriteRestaurant = user.getFavoriteRestaurants();
         return favoriteRestaurant;
     }
@@ -151,8 +152,8 @@ public class UserService implements IUserService{
     public User addFavoriteRestaurant(String userId, Restaurant restaurant) throws UserNotFoundException {
 
         Optional<User> optionalUser = iUserRepository.findById(userId);
-
-
+        System.out.println("Inside AddingFavoriteRestaurant Service");
+        System.out.println("Restaurant Data: " + restaurant);
         if (optionalUser.isEmpty()) {
             throw new UserNotFoundException();
         }

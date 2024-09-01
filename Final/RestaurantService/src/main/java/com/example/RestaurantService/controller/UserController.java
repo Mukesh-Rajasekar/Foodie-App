@@ -82,18 +82,26 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
-    @PostMapping("/user/{userId}/favorite-restaurant")
-    public ResponseEntity<User> addFavoriteRestaurant(
-            @PathVariable String userId,
-            @RequestBody Restaurant restaurant
-    ) throws UserNotFoundException {
-
+    @PostMapping("/user/favorite-restaurant")
+    public ResponseEntity<User> addFavoriteRestaurant(@RequestBody Restaurant restaurant, HttpServletRequest request) throws UserNotFoundException {
+        System.out.println("Restaurant in Controller : " + restaurant);
+        System.out.println("header" + request.getHeader("Authorization"));
+        Claims claims = (Claims) request.getAttribute("claims");
+        String userId = (String) claims.get("userId");
+        System.out.println(userId);
         User updatedUser = iUserService.addFavoriteRestaurant(userId, restaurant);
+        System.out.println(updatedUser);
+        System.out.println("Valid Request");
         return ResponseEntity.ok(updatedUser);
     }
 
-    @GetMapping("/user/display-all-fav-restaurant/{userId}")
-    public ResponseEntity displayAllFavRestaurant(@PathVariable String userId) throws UserNotFoundException {
+    @GetMapping("/user/display-all-fav-restaurant")
+    public ResponseEntity displayAllFavRestaurant(HttpServletRequest request) throws UserNotFoundException {
+        System.out.println("/user/display-all-fav-restaurant");
+        System.out.println("header" +request.getHeader("Authorization"));
+        Claims claims = (Claims) request.getAttribute("claims");
+        String userId = (String) claims.get("userId");
+        System.out.println("UserId : "+userId);
         List<Restaurant> favRest = iUserService.favRestaurants(userId);
         return new ResponseEntity(favRest,HttpStatus.OK);
     }

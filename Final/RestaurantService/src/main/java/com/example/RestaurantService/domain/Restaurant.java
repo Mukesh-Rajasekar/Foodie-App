@@ -4,21 +4,45 @@ import org.springframework.data.annotation.Id;
 import java.util.List;
 
 public class Restaurant {
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "restaurantId='" + restaurantId + '\'' +
+                ", name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                ", cuisine=" + cuisine +
+                ", foodItems=" + foodItems +
+                '}';
+    }
+
     @Id
     private String restaurantId;
     private String name;
     private String location;
+
+    private String imagePath;
     private List<Cuisine> cuisine;  // Corrected to List<Cuisine>
     private List<FoodItems> foodItems;
 
     public Restaurant() {}
 
-    public Restaurant(String restaurantId, String name, String location, List<Cuisine> cuisine, List<FoodItems> foodItems) {
+    public Restaurant(String restaurantId, String name, String location, String imagePath, List<Cuisine> cuisine, List<FoodItems> foodItems) {
         this.restaurantId = restaurantId;
         this.name = name;
         this.location = location;
+        this.imagePath = imagePath;
         this.cuisine = cuisine;
         this.foodItems = foodItems;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public String getRestaurantId() {

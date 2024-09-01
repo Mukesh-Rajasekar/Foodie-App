@@ -2,6 +2,16 @@ package com.example.RestaurantService.domain;
 
 public class FoodItems {
 
+    @Override
+    public String toString() {
+        return "FoodItems{" +
+                "dishName='" + dishName + '\'' +
+                ", price=" + price +
+                ", rating=" + rating +
+                ", dishDescription='" + dishDescription + '\'' +
+                '}';
+    }
+
     private String dishName;
     private double price;
     private float rating;

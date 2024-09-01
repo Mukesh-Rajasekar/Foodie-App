@@ -7,6 +7,19 @@ import java.util.List;
 
 @Document
 public class User {
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", profileImage='" + profileImage + '\'' +
+                ", favoriteRestaurants=" + favoriteRestaurants +
+                ", favoriteCuisines=" + favoriteCuisines +
+                '}';
+    }
+
     @Id
     private String userId;
     private String password;
