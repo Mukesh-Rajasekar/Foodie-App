@@ -83,17 +83,30 @@ public class UserController {
     }
 
     @PostMapping("/user/favorite-restaurant")
-    public ResponseEntity<User> addFavoriteRestaurant(@RequestBody Restaurant restaurant, HttpServletRequest request) throws UserNotFoundException {
+    public ResponseEntity<?> addFavoriteRestaurant(@RequestBody Restaurant restaurant, HttpServletRequest request) throws UserNotFoundException {
         System.out.println("Restaurant in Controller : " + restaurant);
         System.out.println("header" + request.getHeader("Authorization"));
+
         Claims claims = (Claims) request.getAttribute("claims");
         String userId = (String) claims.get("userId");
         System.out.println(userId);
+
+        // Check if the restaurant is already a favorite for the user
+        User user = iUserService.getUserById(userId);
+        boolean isAlreadyFavorited = user.getFavoriteRestaurants().stream()
+                .anyMatch(favRestaurant -> favRestaurant.getRestaurantId().equals(restaurant.getRestaurantId()));
+
+        if (isAlreadyFavorited) {
+            // Return a response indicating the restaurant is already a favorite
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Restaurant is already in your favorites");
+        }
+
         User updatedUser = iUserService.addFavoriteRestaurant(userId, restaurant);
         System.out.println(updatedUser);
         System.out.println("Valid Request");
         return ResponseEntity.ok(updatedUser);
     }
+
 
     @GetMapping("/user/display-all-fav-restaurant")
     public ResponseEntity displayAllFavRestaurant(HttpServletRequest request) throws UserNotFoundException {

@@ -25,5 +25,6 @@ public interface IUserService {
     User deleteFavouriteCuisine(String userId, Long cuisineId) throws UserNotFoundException, CusineNotFound;
 
     List<Restaurant> favRestaurants(String userId) throws UserNotFoundException;
+    User getUserById(String userId) throws UserNotFoundException;
 
 }

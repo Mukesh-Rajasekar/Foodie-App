@@ -178,6 +178,15 @@ public class UserService implements IUserService{
         return iUserRepository.save(user);
     }
 
+    @Override
+    public User getUserById(String userId) throws UserNotFoundException {
+        Optional<User> userOptional = iUserRepository.findById(userId);
 
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        } else {
+            throw new UserNotFoundException();
+        }
+    }
 
 }
