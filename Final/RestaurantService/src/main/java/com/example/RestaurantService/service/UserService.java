@@ -31,16 +31,34 @@ public class UserService implements IUserService{
         this.userProxy=userProxy;
     }
 
+//    @Override
+//    public User registerUser(User user) throws UserAlreadyExists{
+//        Optional<User> user1 = iUserRepository.findById(user.getUserId());
+//        User user3 = iUserRepository.findByUsername(user.getUsername());
+//        User user4 = iUserRepository.findByEmail(user.getEmail());
+//
+//        if(user1.isPresent() || user3==null || user4==null){throw new UserAlreadyExists();
+//        }
+//        User user2 = iUserRepository.save(user);
+//        ResponseEntity responseEntity = userProxy.saveUser(user2);
+//        System.out.println(responseEntity.getBody());
+//        return user2;
+//    }
+
     @Override
-    public User registerUser(User user) throws UserAlreadyExists{
+    public User registerUser(User user) throws UserAlreadyExists {
         Optional<User> user1 = iUserRepository.findById(user.getUserId());
-        if(user1.isPresent()){throw new UserAlreadyExists();
+        User user3 = iUserRepository.findByUsername(user.getUsername());
+        User user4 = iUserRepository.findByEmail(user.getEmail());
+        if (user1.isPresent() || user3 != null || user4 != null) {
+            throw new UserAlreadyExists();
         }
-        User user2 = iUserRepository.save(user);
-        ResponseEntity responseEntity = userProxy.saveUser(user2);
+        User savedUser = iUserRepository.save(user);
+        ResponseEntity<?> responseEntity = userProxy.saveUser(savedUser);
         System.out.println(responseEntity.getBody());
-        return user2;
+        return savedUser;
     }
+
 
     @Override
     public User updateUser(String userId, User updatedUser) throws UserNotFoundException {
@@ -175,7 +193,9 @@ public class UserService implements IUserService{
         }
 
 
+
         return iUserRepository.save(user);
+
     }
 
     @Override
@@ -183,8 +203,11 @@ public class UserService implements IUserService{
         Optional<User> userOptional = iUserRepository.findById(userId);
 
         if (userOptional.isPresent()) {
+            System.out.println("User Is Present ");
             return userOptional.get();
+
         } else {
+            System.out.println("User Is Not Present");
             throw new UserNotFoundException();
         }
     }

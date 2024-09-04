@@ -18,6 +18,7 @@ public class SecurityTokenGenerator implements ISecurityTokenGenerator{
         Map<String, Object> userdata= new HashMap<>();
     userdata.put("userId",userAuthentication.getUserId());
     userdata.put("password",userAuthentication.getPassword());
+        userdata.put("email",userAuthentication.getEmail());
         System.out.println("UserData: "+userdata);
   String JWTtoken;
   JWTtoken= Jwts.builder()

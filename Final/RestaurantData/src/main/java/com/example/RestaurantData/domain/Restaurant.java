@@ -12,7 +12,6 @@ public class Restaurant {
     private String restaurantId;
     private String name;
     private String location;
-
     private String imagePath;
     private List<Cuisine> cuisine;  // Corrected to List<Cuisine>
     private List<FoodItems> foodItems;

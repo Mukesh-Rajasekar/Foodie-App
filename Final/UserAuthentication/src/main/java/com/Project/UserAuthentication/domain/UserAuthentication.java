@@ -8,14 +8,23 @@ public class UserAuthentication {
     @Id
     String userId;
     String password;
-
+String email;
 
     public UserAuthentication() {
     }
 
-    public UserAuthentication(String userId, String password) {
+    public UserAuthentication(String userId, String password,String email) {
         this.userId = userId;
         this.password = password;
+        this.email=email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUserId() {

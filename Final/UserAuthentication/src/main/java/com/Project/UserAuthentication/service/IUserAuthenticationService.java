@@ -6,5 +6,5 @@ import com.Project.UserAuthentication.exception.UserAlreadyExistsException;
 
 public interface IUserAuthenticationService {
     UserAuthentication registerUser(UserAuthentication userAuthentication) throws UserAlreadyExistsException;
-    UserAuthentication login(String userId, String password) throws InvalidCredentialsException;
+    UserAuthentication login(String email, String password) throws InvalidCredentialsException;
 }

@@ -37,14 +37,13 @@ public class UserAuthenticationController{
     @PostMapping("/login")
     public ResponseEntity loginUser(@RequestBody UserAuthentication userAuthentication) throws InvalidCredentialsException {
         System.out.println("Inside Controller Layer");
-            UserAuthentication userAuthentication1=iUserAuthenticationService.login(userAuthentication.getUserId(), userAuthentication.getPassword());
+        System.out.println(userAuthentication);
+            UserAuthentication userAuthentication1=iUserAuthenticationService.login(userAuthentication.getEmail(), userAuthentication.getPassword());
         System.out.println("calling Create token");
             Map<String,String> map=iSecurityTokenGenerator.createToken(userAuthentication1);
         System.out.println("Map: "+ map);
             responseEntity=new ResponseEntity(map,HttpStatus.OK);
             return responseEntity;
     }
-
-
 
 }

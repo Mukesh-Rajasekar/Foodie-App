@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Objects;
 
 
 @RestController
@@ -93,14 +94,22 @@ public class UserController {
 
         // Check if the restaurant is already a favorite for the user
         User user = iUserService.getUserById(userId);
-        boolean isAlreadyFavorited = user.getFavoriteRestaurants().stream()
-                .anyMatch(favRestaurant -> favRestaurant.getRestaurantId().equals(restaurant.getRestaurantId()));
+        System.out.println(user);
+        boolean isAlreadyFavorited = user != null
+                && restaurant != null
+                && user.getFavoriteRestaurants() != null
+                && user.getFavoriteRestaurants().stream()
+                .anyMatch(favRestaurant ->
+                                favRestaurant != null
+                                        && Objects.equals(favRestaurant.getRestaurantId(), restaurant.getRestaurantId()));
 
         if (isAlreadyFavorited) {
             // Return a response indicating the restaurant is already a favorite
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Restaurant is already in your favorites");
         }
 
+        System.out.println("display UserId"+userId);
+        System.out.println("display restaurant"+restaurant);
         User updatedUser = iUserService.addFavoriteRestaurant(userId, restaurant);
         System.out.println(updatedUser);
         System.out.println("Valid Request");
